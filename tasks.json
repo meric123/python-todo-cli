@@ -1,0 +1,14 @@
+[
+    {
+        "task": "take the garbage out",
+        "done": false
+    },
+    {
+        "task": "clean your dishes",
+        "done": true
+    },
+    {
+        "task": "wash the clothes",
+        "done": false
+    }
+]

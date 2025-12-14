@@ -14,7 +14,7 @@ This project was created to practice Python fundamentals and file handling.
 ## Technologies Used
 - Python 3
 - JSON
-```md
+
 ## How to Run
 
 ```bash

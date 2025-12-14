@@ -18,7 +18,7 @@ This project was created to practice Python fundamentals and file handling.
 ## How to Run
 
 ```bash
-python todo.py			
+python todolist.py			
 ```
 ## Author
 Nafiz Meriç Yıldırım

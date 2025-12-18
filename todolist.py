@@ -18,9 +18,20 @@ def save_tasks(tasks):
 
 def add_task(tasks):
     task = input("Enter a task: ")
-    tasks.append({"task": task, "done": False})
+
+    priority = input("Enter priority (High / Medium / Low): ").capitalize()
+    if priority not in ["High", "Medium", "Low"]:
+        priority = "Medium"
+
+    tasks.append({
+        "task": task,
+        "done": False,
+        "priority": priority
+    })
+
     save_tasks(tasks)
     print("✅ Task added successfully.")
+)
 
 
 def list_tasks(tasks):
@@ -30,7 +41,9 @@ def list_tasks(tasks):
 
     for i, task in enumerate(tasks, start=1):
         status = "✔" if task["done"] else "✘"
-        print(f"{i}. {task['task']} [{status}]")
+        priority = task.get("priority", "Medium")
+        print(f"{i}. {task['task']} [{priority}] [{status}]")
+
 
 
 def delete_task(tasks):

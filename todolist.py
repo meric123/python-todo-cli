@@ -17,16 +17,17 @@ def save_tasks(tasks):
 
 
 def add_task(tasks):
-    task = input("Enter a task: ")
+    task_desc = input("Enter a task: ")
 
     priority = input("Enter priority (High / Medium / Low): ").capitalize()
     if priority not in ["High", "Medium", "Low"]:
         priority = "Medium"
 
     tasks.append({
-        "task": task,
-        "done": False,
-        "priority": priority
+        "id": len(tasks) + 1,
+        "task": task_desc,
+        "priority": priority,
+        "done": False
     })
 
     save_tasks(tasks)
@@ -36,7 +37,7 @@ def add_task(tasks):
 
 def list_tasks(tasks):
     if not tasks:
-        print("📭 No tasks found.")
+        print("❌ No tasks found.")
         return
 
     priority_order = {
@@ -47,13 +48,16 @@ def list_tasks(tasks):
 
     sorted_tasks = sorted(
         tasks,
-        key=lambda task: priority_order.get(task.get("priority", "Medium"), 2)
+        key=lambda task: (
+            task["done"],  # False (not done) first, True (done) last
+            priority_order.get(task["priority"], 99)
+        )
     )
 
-    for i, task in enumerate(sorted_tasks, start=1):
+    for task in sorted_tasks:
         status = "✔" if task["done"] else "✘"
-        priority = task.get("priority", "Medium")
-        print(f"{i}. {task['task']} [{priority}] [{status}]")
+        print(f'{task["id"]}. {task["task"]} [{task["priority"]}] [{status}]')
+
 
 
 
@@ -67,6 +71,37 @@ def delete_task(tasks):
         print(f"🗑 Task deleted: {removed['task']}")
     except (ValueError, IndexError):
         print("❌ Invalid task number.")
+
+def change_priority(tasks):
+    if not tasks:
+        print("⚠ No tasks available.")
+        return
+
+    list_tasks(tasks)
+
+    try:
+        task_id = int(input("Enter task ID: "))
+
+        for task in tasks:
+            if task["id"] == task_id:
+                new_priority = input("Select new priority (High / Medium / Low): ").capitalize()
+
+                if new_priority not in ["High", "Medium", "Low"]:
+                    print("❌ Invalid priority.")
+                    return
+
+                task["priority"] = new_priority
+                save_tasks(tasks)
+                print("✅ Priority updated.")
+                return
+
+        print("❌ Task ID not found.")
+
+    except ValueError:
+        print("❌ Please enter a valid number.")
+
+
+
 
 
 def mark_done(tasks):
@@ -86,7 +121,9 @@ def menu():
     print("2. Add Task")
     print("3. Delete Task")
     print("4. Mark Task as Completed")
-    print("5. Exit")
+    print("5. Change task priority")
+    print("6. Exit")
+
 
 
 def main():
@@ -105,7 +142,11 @@ def main():
         elif choice == "4":
             mark_done(tasks)
         elif choice == "5":
+            change_priority(tasks)
+        elif choice == "6":
             print("👋 Exiting application...")
+    
+
             break
         else:
             print("❌ Invalid choice.")

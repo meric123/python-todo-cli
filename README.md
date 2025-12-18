@@ -9,6 +9,7 @@ This project was created to practice Python fundamentals and file handling.
 - List all tasks
 - Delete tasks
 - Mark tasks as completed
+- Task priority (High / Medium / Low)
 - Persistent storage using a JSON file
 
 ## Technologies Used

@@ -22,3 +22,8 @@ python todolist.py
 ```
 ## Author
 Nafiz Meriç Yıldırım
+
+## Example Output
+1. take the garbage out [✘]
+2. clean your dishes [✔]
+3. wash the clothes [✘]

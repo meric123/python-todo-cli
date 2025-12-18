@@ -31,7 +31,7 @@ def add_task(tasks):
 
     save_tasks(tasks)
     print("✅ Task added successfully.")
-)
+
 
 
 def list_tasks(tasks):
@@ -39,10 +39,22 @@ def list_tasks(tasks):
         print("📭 No tasks found.")
         return
 
-    for i, task in enumerate(tasks, start=1):
+    priority_order = {
+        "High": 1,
+        "Medium": 2,
+        "Low": 3
+    }
+
+    sorted_tasks = sorted(
+        tasks,
+        key=lambda task: priority_order.get(task.get("priority", "Medium"), 2)
+    )
+
+    for i, task in enumerate(sorted_tasks, start=1):
         status = "✔" if task["done"] else "✘"
         priority = task.get("priority", "Medium")
         print(f"{i}. {task['task']} [{priority}] [{status}]")
+
 
 
 
